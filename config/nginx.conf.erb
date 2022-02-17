@@ -8,18 +8,23 @@ events {
 }
 
 http {
-	access_log /dev/stdout;
-	server {
-		listen <%= ENV["PORT"] %>;
-
-		location / {
-			proxy_pass <%= ENV["UPSTREAM_SERVER"] %>;
-			proxy_http_version 1.1;
-			proxy_buffering off;
-		}
-
-		if ($http_x_forwarded_proto != "https") {
-			rewrite ^(.*)$ https://$host$1 permanent;
-		}
-	}
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+ 
+    upstream websocket {
+        server 52.65.230.169:7516;
+    }
+ 
+    server {
+        listen 7516;
+        location / {
+            proxy_pass http://websocket;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+        }
+    }
 }
