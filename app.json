@@ -11,10 +11,5 @@
       "url": "http://github.com/octoberswimmer/heroku-buildpack-nginx.git"
     }
   ],
-  "env": {
-    "UPSTREAM_SERVER": {
-      "description": "URL of upstream server to which all requests should be proxied"
-    }
-  },
   "stack": "Heroku-18"
 }
