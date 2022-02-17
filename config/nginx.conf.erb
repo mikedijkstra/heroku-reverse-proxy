@@ -14,11 +14,11 @@ http {
     }
  
     upstream websocket {
-        server 52.65.230.169:7516;
+        server 52.65.230.169:7830;
     }
  
     server {
-        listen 7516;
+        listen 7830;
         location / {
             proxy_pass http://websocket;
             proxy_http_version 1.1;
