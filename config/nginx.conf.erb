@@ -18,7 +18,8 @@ http {
     }
  
     server {
-        listen 7830;
+        listen <%= ENV["PORT"] %>;
+
         location / {
             proxy_pass http://websocket;
             proxy_http_version 1.1;
