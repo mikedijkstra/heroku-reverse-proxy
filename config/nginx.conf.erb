@@ -13,7 +13,7 @@ http {
     }
  
     upstream websocket {
-        server 13.211.202.100:7288;
+        server <%= ENV["WEBSOCKET"] %>;
     }
  
     server {
