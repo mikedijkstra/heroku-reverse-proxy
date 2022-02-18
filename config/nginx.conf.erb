@@ -12,17 +12,11 @@ http {
         default upgrade;
     }
  
-    upstream websocket {
-        server $upstream_address:$upstream_socket;
-    }
- 
     server {
         listen <%= ENV["PORT"] %>;
 
         location ~* (.*)/(.*) {
-            set $upstream_address $1;
-            set $upstream_socket $2;
-            proxy_pass http://websocket;
+            proxy_pass http://$1:$2;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
